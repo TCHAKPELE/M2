@@ -1,0 +1,60 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://player/player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://enemies/red_robot/red_robot.tscn" type="PackedScene" id=2]
+[ext_resource path="res://level/scene/core.tscn" type="PackedScene" id=3]
+[ext_resource path="res://enemies/Black Dragon NEW/Dragon_Baked_Actions_fbx_7.4_binary.fbx" type="PackedScene" id=4]
+[ext_resource path="res://level/map.gd" type="Script" id=5]
+[ext_resource path="res://level/Debug.gd" type="Script" id=6]
+[ext_resource path="res://player/bullet/bullet.tscn" type="PackedScene" id=7]
+[ext_resource path="res://level/Node.gd" type="Script" id=8]
+[ext_resource path="res://level/geometry/models/lights.glb" type="PackedScene" id=9]
+[ext_resource path="res://level/geometry/environment.tres" type="Environment" id=10]
+
+[sub_resource type="GDScript" id=1]
+
+[node name="map" type="Spatial"]
+script = ExtResource( 5 )
+
+[node name="core" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000973463, -0.00859356, 0.00159073 )
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1.81885, 0.0202543, 0, -0.0174487, 1.78957, 0, 0, 0, 1.15419, -22.7886, 2.78058, -25.861 )
+
+[node name="RedRobot" parent="." instance=ExtResource( 2 )]
+transform = Transform( 4.13678, 0, 0, 0, 3.44174, 0, 0, 0, 4.13678, -19.7217, 2.90094, 23.7222 )
+
+[node name="RedRobot2" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1.06297, 0, -6.76174, 0, 6.16497, 0, 6.76174, 0, 1.06297, 26.362, 3.70875, 26.4556 )
+
+[node name="light" type="Spatial" parent="."]
+
+[node name="OmniLight" type="OmniLight" parent="light"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -24.2937, 21.2018, -13.05 )
+
+[node name="Dragon_Baked_Actions_fbx_74_binary" parent="." instance=ExtResource( 4 )]
+transform = Transform( 0.319243, 0, 0, 0, 0.386245, 0, 0, 0, 0.378362, 35.7533, 2.48963, -16.0754 )
+script = SubResource( 1 )
+
+[node name="Debug" type="Label" parent="."]
+margin_right = 40.0
+margin_bottom = 14.0
+text = "FPS: 0
+VSync:
+Memory:"
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource( 10 )
+
+[node name="Node" type="Node" parent="WorldEnvironment"]
+script = ExtResource( 8 )
+
+[node name="Bullet" parent="WorldEnvironment/Node" instance=ExtResource( 7 )]
+
+[node name="LightsModel" parent="." instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -28.4937, 35.7158, -31.6151 )
